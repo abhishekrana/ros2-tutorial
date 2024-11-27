@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     python3-colcon-common-extensions \
     ros-humble-ros2cli \
+    ros-humble-demo-nodes-cpp \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
