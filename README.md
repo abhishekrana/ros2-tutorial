@@ -20,8 +20,7 @@ source ~/.bashrc
 ## Run
 
 ```bash
-# my_robot_controller is package name
-# test_node is executable name
+# ros2 run package_name executable_name
 ros2 run my_robot_controller test_node
 ```
 
