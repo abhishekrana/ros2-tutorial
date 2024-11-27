@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /workspace
 
-COPY src /workspace/src/
+# This workspace is an overlay on top of the ROS2 workspace
+COPY ros2_ws/src /workspace/ros2_ws/src/
 
 # Build the ROS2 workspace
 # RUN . /opt/ros/humble/setup.sh && colcon build
@@ -23,4 +24,4 @@ RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc && \
     echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
 
 # Set the entrypoint
-ENTRYPOINT ["/bin/bash", "-c", "python3 src/main.py"]
+ENTRYPOINT ["/bin/bash", "-c", "python3 ros2_ws/src/main.py"]
