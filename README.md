@@ -70,5 +70,4 @@ Vector3  angular
         float64 x
         float64 y
         float64 z
-root@0d6f6d5da78b:/workspace#
 ```

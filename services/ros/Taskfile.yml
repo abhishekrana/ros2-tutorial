@@ -15,3 +15,8 @@ tasks:
     desc: Run draw circle
     cmds:
       - ros2 run my_robot_controller draw_circle
+
+  run-pose-subscriber:
+    desc: Run pose subscriber
+    cmds:
+      - ros2 run my_robot_controller pose_subscriber
