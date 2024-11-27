@@ -31,11 +31,7 @@ cd ros2_ws/src
 ros2 pkg create my_robot_controller --build-type ament_python --dependencies rclpy
 ```
 
-## NOTES
-
-- Package can have multiple nodes
-- ament is the build system
-- colcon is the build tool that uses ament
+## Commands
 
 Nodes
 
@@ -56,7 +52,15 @@ Services
 - ros2 service type /add_two_ints
 - ros2 interface show example_interfaces/srv/AddTwoInts
 
+## NOTES
+
+- Package can have multiple nodes
+- ament is the build system
+- colcon is the build tool that uses ament
+
 Topics
+
+- Send data stream from one part to another without expecting an answer.
 
 ```bash
 $:/workspace# ros2 topic list
@@ -86,9 +90,8 @@ Vector3  angular
 
 Services
 
-- Services are used for
-  1. Computation
-  2. Change of settings
+1. Computation
+2. Change of settings
 
 ```bash
 $:/workspace# ros2 interface show example_interfaces/srv/AddTwoInts
