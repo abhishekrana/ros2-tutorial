@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-ros2cli \
     ros-humble-demo-nodes-cpp \
     ros-humble-rqt-graph \
+    ros-humble-turtlesim \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
