@@ -13,7 +13,7 @@ task install:pre-commit
 
 ```bash
 cd ros2_ws
-colcon build
+colcon build --symlink-install
 source ~/.bashrc
 ```
 
