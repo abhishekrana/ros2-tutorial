@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     python3-colcon-common-extensions \
     ros-humble-ros2cli \
     ros-humble-demo-nodes-cpp \
+    ros-humble-rqt-graph \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
