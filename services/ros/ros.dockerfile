@@ -19,7 +19,8 @@ COPY src /workspace/src/
 
 # Source the ROS2 setup script
 RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc && \
-    echo "source /opt/ros/humble/local_setup.bash" >> ~/.bashrc
+    echo "source /opt/ros/humble/local_setup.bash" >> ~/.bashrc && \
+    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
 
 # Set the entrypoint
 ENTRYPOINT ["/bin/bash", "-c", "python3 src/main.py"]
