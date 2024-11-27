@@ -12,6 +12,7 @@ from turtlesim.srv import SetPen
 class TurtleControllerNode(Node):
     def __init__(self) -> None:
         super().__init__("pose_subscriber")  # Can be different from the file name
+        self.previous_x_ = 0.0
         self.pose_subscriber = self.create_subscription(
             Pose, "/turtle1/pose", self.pose_callback, 10
         )
@@ -34,10 +35,14 @@ class TurtleControllerNode(Node):
             cmd.angular.z = 0.0
         self.cmd_vel_pub.publish(cmd)
 
-        if pose.x > 5.5:
+        # ros2 topic hz /turtle1/pose # 60 Hz i.e. this callback is called 60 times per second
+        # So we add condition (using previous_x_) to only call the service when we cross the middle.
+        if pose.x > 5.5 and self.previous_x_ <= 5.5:
+            self.previous_x_ = pose.x
             self.get_logger().info("Changing pen color to red.")
             self.call_set_pen_service(255, 0, 0, 3, 0)
-        else:
+        elif pose.x <= 5.5 and self.previous_x_ > 5.5:
+            self.previous_x_ = pose.x
             self.get_logger().info("Changing pen color to blue.")
             self.call_set_pen_service(0, 0, 255, 3, 0)
 
