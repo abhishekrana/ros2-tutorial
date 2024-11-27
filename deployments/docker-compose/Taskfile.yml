@@ -68,6 +68,11 @@ tasks:
       - |
         echo "TBD"
 
+  exec-ros:
+    desc: Exec into ros
+    cmds:
+      - docker exec -it ros bash
+
   restart-ros:
     desc: Restart ros
     cmds:
