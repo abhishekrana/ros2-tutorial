@@ -1,20 +1,50 @@
 version: '3'
+vars:
+  DATE: '{{if eq .OS "Darwin"}}gdate{{ else }}date{{ end }}'
+  DEFAULT_DATETIME_FORMAT: '%Y-%m-%dT%H:%M:%SZ'
+  BUILD_CREATED:
+    sh: ({{.DATE}} -u +"{{.DEFAULT_DATETIME_FORMAT}}")
+  GIT_COMMIT:
+    sh: if [ -x "$(command -v git)" ]; then git log -1 --format=%H; else echo "latest"; fi
+  BUILD_VERSION: '{{.BUILD_VERSION | default .GIT_COMMIT}}'
+  BUILD_TARGET: '{{.BUILD_TARGET | default "dev"}}'
+  DOCKER_REGISTRY: '{{.DOCKER_REGISTRY | default "registry.localhost"}}'
+  DOCKER_TAG: '{{.DOCKER_TAG | default "latest"}}'
+  HOSTNAME:
+    sh: hostname
 
 tasks:
+  build-ros:
+    desc: Build ros
+    cmds:
+      - |
+        if [[ {{.BUILD_TARGET}} == "dev" ]];then
+          BUILD_CREATED={{.BUILD_CREATED}} BUILD_VERSION={{.BUILD_VERSION}} GIT_COMMIT={{.GIT_COMMIT}} \
+          BUILD_TARGET={{.BUILD_TARGET}} \
+          DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+          docker compose --profile dev --env-file dev.env build ros-dev
+        fi
+        if [[ {{.BUILD_TARGET}} == "prod" ]];then
+          BUILD_CREATED={{.BUILD_CREATED}} BUILD_VERSION={{.BUILD_VERSION}} GIT_COMMIT={{.GIT_COMMIT}} \
+          BUILD_TARGET={{.BUILD_TARGET}} \
+          DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+          docker compose --profile prod --env-file prod.env build ros
+        fi
+
   start-ros:
     desc: Start ros
     deps:
       - task: build-ros
-    env:
-      HOSTNAME: '{{.HOSTNAME}}'
     cmds:
       - pushd ../../services/ros && task setup-venv && source .venv/bin/activate && popd
       - |
         if [[ {{.BUILD_TARGET}} == "dev" ]];then
-            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} BUILD_TARGET={{.BUILD_TARGET}} \
-            docker compose --profile dev --env-file dev.env up --build ros -d
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+            BUILD_TARGET={{.BUILD_TARGET}} \
+            docker compose --profile dev --env-file dev.env up --build ros-dev -d
         else
-            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} BUILD_TARGET={{.BUILD_TARGET}} \
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+            BUILD_TARGET={{.BUILD_TARGET}} \
             docker compose --profile prod --env-file prod.env up --build ros -d
         fi
 
@@ -23,9 +53,13 @@ tasks:
     cmds:
       - |
         if [[ {{.BUILD_TARGET}} == "dev" ]];then
-          docker compose --profile dev --env-file dev.env down ros --remove-orphans
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+            BUILD_TARGET={{.BUILD_TARGET}} \
+            docker compose --profile dev --env-file dev.env down ros-dev --remove-orphans
         else
-          docker compose --profile prod --env-file prod.env down ros --remove-orphans
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
+            BUILD_TARGET={{.BUILD_TARGET}} \
+            docker compose --profile prod --env-file prod.env down ros --remove-orphans
         fi
 
   purge-ros:

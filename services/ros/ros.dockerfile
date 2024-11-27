@@ -1,4 +1,3 @@
-# Use the official ROS2 Humble base image
 FROM ros:humble
 
 # Install necessary packages
