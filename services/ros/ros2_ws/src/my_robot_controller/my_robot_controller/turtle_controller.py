@@ -22,11 +22,18 @@ class TurtleControllerNode(Node):
             f"Received pose: x={msg.x}, y={msg.y}, theta={msg.theta}"
         )
 
+        # Move the turtle to the right
+        if msg.x < 8:
+            msg1 = Twist()
+            msg1.linear.x = 1.0
+            msg1.angular.z = 0.0
+            self.cmd_vel_pub.publish(msg1)
+
         if msg.x > 8:
-            msg = Twist()
-            msg.linear.x = 0.0
-            msg.angular.z = 0.0
-            self.cmd_vel_pub.publish(msg)
+            msg1 = Twist()
+            msg1.linear.x = 0.0
+            msg1.angular.z = 0.0
+            self.cmd_vel_pub.publish(msg1)
             self.get_logger().info("Reached the destination.")
 
 
