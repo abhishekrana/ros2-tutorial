@@ -37,6 +37,7 @@ tasks:
       - task: build-ros
     cmds:
       # - pushd ../../services/ros && task setup-venv && source .venv/bin/activate && popd
+      - xhost +local:docker
       - |
         if [[ {{.BUILD_TARGET}} == "dev" ]];then
             DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} \
