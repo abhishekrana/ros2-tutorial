@@ -164,6 +164,7 @@ cython_debug/
 # ROS
 log/
 build/
+services/ros/ros2_ws/install/my_robot_controller/
 
 # Custom
 tmp
