@@ -17,24 +17,19 @@ class TurtleControllerNode(Node):
         )  # 10 is the queue size
         self.get_logger().info("Turtle Controller Node has been started.")
 
-    def pose_callback(self, msg: Pose) -> None:
+    def pose_callback(self, pose: Pose) -> None:
         self.get_logger().info(
-            f"Received pose: x={msg.x}, y={msg.y}, theta={msg.theta}"
+            f"Received pose: x={pose.x}, y={pose.y}, theta={pose.theta}"
         )
 
-        # Move the turtle to the right
-        if msg.x < 8:
-            msg1 = Twist()
-            msg1.linear.x = 1.0
-            msg1.angular.z = 0.0
-            self.cmd_vel_pub.publish(msg1)
-
-        if msg.x > 8:
-            msg1 = Twist()
-            msg1.linear.x = 0.0
-            msg1.angular.z = 0.0
-            self.cmd_vel_pub.publish(msg1)
-            self.get_logger().info("Reached the destination.")
+        cmd = Twist()
+        if pose.x > 9.0 or pose.x < 2.0 or pose.y > 9.0 or pose.y < 2.0:
+            cmd.linear.x = 1.0
+            cmd.angular.z = 0.9
+        else:
+            cmd.linear.x = 5.0
+            cmd.angular.z = 0.0
+        self.cmd_vel_pub.publish(cmd)
 
 
 def main(args=None) -> None:
