@@ -37,14 +37,26 @@ ros2 pkg create my_robot_controller --build-type ament_python --dependencies rcl
 - ament is the build system
 - colcon is the build tool that uses ament
 
-Commands
+Nodes
 
 - ros2 node list
 - ros2 node info /first_node
+
+Topics
+
 - ros2 topic list
 - ros2 topic info /chatter
 - ros2 interface show std_msgs/msg/String
 - ros2 topic echo /chatter # listen to topic chatter
+
+Services
+
+- ros2 run demo_nodes_cpp add_two_ints_server
+- ros2 service list
+- ros2 service type /add_two_ints
+- ros2 interface show example_interfaces/srv/AddTwoInts
+
+Topics
 
 ```bash
 root@0d6f6d5da78b:/workspace# ros2 topic list
@@ -70,4 +82,28 @@ Vector3  angular
         float64 x
         float64 y
         float64 z
+```
+
+Services
+
+```bash
+root@0d6f6d5da78b:/workspace# ros2 interface show example_interfaces/srv/AddTwoInts
+int64 a
+int64 b
+---
+int64 sum
+```
+
+```
+Request
+---
+Response
+```
+
+```bash
+root@0d6f6d5da78b:/workspace# ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{'a': 2, 'b': 5}"
+requester: making request: example_interfaces.srv.AddTwoInts_Request(a=2, b=5)
+
+response:
+example_interfaces.srv.AddTwoInts_Response(sum=7)
 ```
