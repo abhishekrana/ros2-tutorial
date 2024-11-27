@@ -19,4 +19,4 @@ RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc
 
 # Set the entrypoint
 # ENTRYPOINT ["/bin/bash", "-c", "source /opt/ros/humble/setup.sh && source /ros2_ws/install/setup.sh && bash"]
-ENTRYPOINT ["/bin/bash", "-c", "source /opt/ros/humble/setup.sh && bash"]
+ENTRYPOINT ["/bin/bash", "-c", "source /opt/ros/humble/setup.sh && bash && python3 src/main.py"]

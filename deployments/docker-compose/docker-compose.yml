@@ -28,8 +28,8 @@ services:
         aliases:
           - ros
     restart: unless-stopped
-    ports:
-      - 9012:9012 # http
+    # ports:
+    #   - 9012:9012 # http
     environment:
       - BUILD_TARGET=${BUILD_TARGET}
       - HOST=${HOST}
