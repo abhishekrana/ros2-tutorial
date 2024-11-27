@@ -59,19 +59,19 @@ Services
 Topics
 
 ```bash
-root@0d6f6d5da78b:/workspace# ros2 topic list
+$:/workspace# ros2 topic list
 /parameter_events
 /rosout
 /turtle1/cmd_vel
 /turtle1/color_sensor
 /turtle1/pose
 
-root@0d6f6d5da78b:/workspace# ros2 topic info /turtle1/cmd_vel
+$:/workspace# ros2 topic info /turtle1/cmd_vel
 Type: geometry_msgs/msg/Twist
 Publisher count: 0
 Subscription count: 1
 
-root@0d6f6d5da78b:/workspace# ros2 interface show geometry_msgs/msg/Twist
+$:/workspace# ros2 interface show geometry_msgs/msg/Twist
 # This expresses velocity in free space broken into its linear and angular parts.
 
 Vector3  linear
@@ -87,7 +87,7 @@ Vector3  angular
 Services
 
 ```bash
-root@0d6f6d5da78b:/workspace# ros2 interface show example_interfaces/srv/AddTwoInts
+$:/workspace# ros2 interface show example_interfaces/srv/AddTwoInts
 int64 a
 int64 b
 ---
@@ -101,7 +101,7 @@ Response
 ```
 
 ```bash
-root@0d6f6d5da78b:/workspace# ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{'a': 2, 'b': 5}"
+$:/workspace# ros2 service call /add_two_ints example_interfaces/srv/AddTwoInts "{'a': 2, 'b': 5}"
 requester: making request: example_interfaces.srv.AddTwoInts_Request(a=2, b=5)
 
 response:
