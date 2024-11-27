@@ -14,6 +14,15 @@ task install:pre-commit
 ```bash
 cd ros2_ws
 colcon build
+source ~/.bashrc
+```
+
+## Run
+
+```bash
+# my_robot_controller is package name
+# test_node is executable name
+ros2 run my_robot_controller test_node
 ```
 
 ## Create package
