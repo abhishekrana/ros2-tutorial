@@ -36,3 +36,8 @@ ros2 pkg create my_robot_controller --build-type ament_python --dependencies rcl
 - Package can have multiple nodes
 - ament is the build system
 - colcon is the build tool that uses ament
+
+Commands
+
+- ros2 node list
+- ros2 node info /first_node
