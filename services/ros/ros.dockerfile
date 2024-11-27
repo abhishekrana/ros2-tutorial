@@ -2,6 +2,9 @@ FROM ros:humble as dev
 
 # Install necessary packages
 RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    bash-completion \
     python3-pip \
     python3-colcon-common-extensions \
     ros-humble-ros2cli \
@@ -9,6 +12,13 @@ RUN apt-get update && apt-get install -y \
     ros-humble-rqt-graph \
     ros-humble-turtlesim \
     && rm -rf /var/lib/apt/lists/*
+
+# Install task
+RUN TASK_VERSION="v3.38.0" && \
+    bash -c "$(curl --location https://taskfile.dev/install.sh)" -- -b /usr/local/bin/ -d ${TASK_VERSION} && \
+    wget -O /etc/bash_completion.d/task.bash \
+    https://raw.githubusercontent.com/go-task/task/${TASK_VERSION}/completion/bash/task.bash && \
+    echo "source /usr/share/bash-completion/bash_completion" >> ~/.bashrc
 
 WORKDIR /workspace
 
