@@ -34,6 +34,8 @@ services:
       - BUILD_TARGET=${BUILD_TARGET}
       - HOST=${HOST}
       - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix # Mount the X11 socket
     profiles:
       - prod
 
@@ -41,6 +43,7 @@ services:
     <<: *ros-base
     volumes:
       - ../../services/ros:/workspace # Volume mount for live reloading in dev
+      - /tmp/.X11-unix:/tmp/.X11-unix # Mount the X11 socket
     environment:
       - DISPLAY=${DISPLAY}
     profiles:
