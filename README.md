@@ -41,3 +41,7 @@ Commands
 
 - ros2 node list
 - ros2 node info /first_node
+- ros2 topic list
+- ros2 topic info /chatter
+- ros2 interface show std_msgs/msg/String
+- ros2 topic echo /chatter # listen to topic chatter
