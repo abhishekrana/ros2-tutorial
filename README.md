@@ -45,3 +45,30 @@ Commands
 - ros2 topic info /chatter
 - ros2 interface show std_msgs/msg/String
 - ros2 topic echo /chatter # listen to topic chatter
+
+```bash
+root@0d6f6d5da78b:/workspace# ros2 topic list
+/parameter_events
+/rosout
+/turtle1/cmd_vel
+/turtle1/color_sensor
+/turtle1/pose
+
+root@0d6f6d5da78b:/workspace# ros2 topic info /turtle1/cmd_vel
+Type: geometry_msgs/msg/Twist
+Publisher count: 0
+Subscription count: 1
+
+root@0d6f6d5da78b:/workspace# ros2 interface show geometry_msgs/msg/Twist
+# This expresses velocity in free space broken into its linear and angular parts.
+
+Vector3  linear
+        float64 x
+        float64 y
+        float64 z
+Vector3  angular
+        float64 x
+        float64 y
+        float64 z
+root@0d6f6d5da78b:/workspace#
+```
