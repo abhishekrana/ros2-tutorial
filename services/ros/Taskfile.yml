@@ -1,0 +1,14 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Build
+    dir: services/ros
+    cmds:
+      - cd ros2_ws && colcon build --symlink-install && source ~/.bashrc
+
+  run:
+    desc: Run
+    dir: services/ros
+    cmds:
+      - ros2 run my_robot_controller test_node
