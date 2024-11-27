@@ -1,12 +1,12 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  ros2:
+  ros:
     build: .
-    container_name: ros2_humble
+    container_name: ros
     volumes:
       - ./src:/ros2_ws/src
-    command: ["bash", "-c", "source /opt/ros/humble/setup.sh && source /ros2_ws/install/setup.sh && bash"]
+    command: ['bash', '-c', 'source /opt/ros/humble/setup.sh && source /ros2_ws/install/setup.sh && bash']
     networks:
       - ros2_network
 

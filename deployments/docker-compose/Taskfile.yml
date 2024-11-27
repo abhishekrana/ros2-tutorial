@@ -1,4 +1,41 @@
 version: '3'
 
 tasks:
-  no-op: {}
+  start-ros:
+    desc: Start ros
+    deps:
+      - task: build-ros
+    env:
+      HOSTNAME: '{{.HOSTNAME}}'
+    cmds:
+      - pushd ../../services/ros && task setup-venv && source .venv/bin/activate && popd
+      - |
+        if [[ {{.BUILD_TARGET}} == "dev" ]];then
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} BUILD_TARGET={{.BUILD_TARGET}} \
+            docker compose --profile dev --env-file dev.env up --build ros -d
+        else
+            DOCKER_REGISTRY={{.DOCKER_REGISTRY}} DOCKER_TAG={{.DOCKER_TAG}} BUILD_TARGET={{.BUILD_TARGET}} \
+            docker compose --profile prod --env-file prod.env up --build ros -d
+        fi
+
+  stop-ros:
+    desc: Stop ros
+    cmds:
+      - |
+        if [[ {{.BUILD_TARGET}} == "dev" ]];then
+          docker compose --profile dev --env-file dev.env down ros --remove-orphans
+        else
+          docker compose --profile prod --env-file prod.env down ros --remove-orphans
+        fi
+
+  purge-ros:
+    desc: Purge ros
+    cmds:
+      - |
+        echo "TBD"
+
+  restart-ros:
+    desc: Restart ros
+    cmds:
+      - task stop-ros
+      - task start-ros
