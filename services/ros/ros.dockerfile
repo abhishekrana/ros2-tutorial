@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y \
     ros-humble-ros2cli \
     ros-humble-demo-nodes-cpp \
     ros-humble-rqt-graph \
+    libgl1-mesa-glx \
+    libxkbcommon-x11-0 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /workspace
@@ -21,4 +23,4 @@ RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc && \
     echo "source /opt/ros/humble/local_setup.bash" >> ~/.bashrc
 
 # Set the entrypoint
-ENTRYPOINT ["/bin/bash", "-c", "python3 src/main.py"]
+ENTRYPOINT ["/bin/bash", "-c", "export DISPLAY=${DISPLAY} && python3 src/main.py"]

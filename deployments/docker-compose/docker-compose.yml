@@ -33,6 +33,7 @@ services:
     environment:
       - BUILD_TARGET=${BUILD_TARGET}
       - HOST=${HOST}
+      - DISPLAY=${DISPLAY}
     profiles:
       - prod
 
@@ -40,5 +41,7 @@ services:
     <<: *ros-base
     volumes:
       - ../../services/ros:/workspace # Volume mount for live reloading in dev
+    environment:
+      - DISPLAY=${DISPLAY}
     profiles:
       - dev
