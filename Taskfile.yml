@@ -1,0 +1,12 @@
+version: '3'
+
+includes:
+  docker:
+    dir: deployments/docker-compose
+    taskfile: deployments/docker-compose/Taskfile.yml
+  install:
+    dir: .
+    taskfile: Taskfile.install.yml
+
+tasks:
+  no-op: {}

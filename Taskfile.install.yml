@@ -1,0 +1,24 @@
+version: '3'
+
+vars:
+  OS:
+    sh: uname -s
+  LOWERCASE_OS:
+    sh: echo "{{.OS}}" | tr '[:upper:]' '[:lower:]'
+  ARCH:
+    sh: uname -m
+  PRE_COMMIT_VERSION: 3.7.0
+
+tasks:
+  pre-commit:
+    desc: Install pre-commit
+    cmds:
+      - |
+        if [[ "$CI" == 1 ]];then
+          echo ""
+        elif [[ "$DC" == 1 ]];then
+          python3 -m pip install pre-commit=={{.PRE_COMMIT_VERSION}}
+        else
+          python3 -m pip install pre-commit=={{.PRE_COMMIT_VERSION}}
+          pre-commit install --hook-type commit-msg
+        fi

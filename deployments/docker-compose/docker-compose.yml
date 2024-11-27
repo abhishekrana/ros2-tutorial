@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  ros2:
+    build: .
+    container_name: ros2_humble
+    volumes:
+      - ./src:/ros2_ws/src
+    command: ["bash", "-c", "source /opt/ros/humble/setup.sh && source /ros2_ws/install/setup.sh && bash"]
+    networks:
+      - ros2_network
+
+networks:
+  ros2_network:
+    driver: bridge
