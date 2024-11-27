@@ -20,3 +20,8 @@ tasks:
     desc: Run pose subscriber
     cmds:
       - ros2 run my_robot_controller pose_subscriber
+
+  run-turtle-controller:
+    desc: Run turtle controller
+    cmds:
+      - ros2 run my_robot_controller turtle_controller
