@@ -3,9 +3,7 @@
 ## Setup
 
 ```bash
-./bootstrap.sh
-bash
-
+./bootstrap.sh && bash
 task install:pre-commit
 ```
 
