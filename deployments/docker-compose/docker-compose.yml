@@ -1,15 +1,6 @@
 version: '3.8'
 
 services:
-  # ros:
-  #   build: .
-  #   container_name: ros
-  #   volumes:
-  #     - ./src:/ros2_ws/src
-  #   command: ['bash', '-c', 'source /opt/ros/humble/setup.sh && source /ros2_ws/install/setup.sh && bash']
-  #   networks:
-  #     - ros2_network
-
   ros: &ros-base
     image: ${DOCKER_REGISTRY}/ros:${DOCKER_TAG:-latest}
     build:
@@ -22,14 +13,11 @@ services:
         - GIT_COMMIT=${GIT_COMMIT}
       target: ${BUILD_TARGET}
     container_name: ros
-    # command: /bin/bash -c "echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc >> ~/.bashrc && /bin/bash"
     networks:
       default:
         aliases:
           - ros
     restart: unless-stopped
-    # ports:
-    #   - 9012:9012 # http
     environment:
       - BUILD_TARGET=${BUILD_TARGET}
       - HOST=${HOST}

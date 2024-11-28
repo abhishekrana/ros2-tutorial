@@ -2,8 +2,8 @@
 
 ## General information
 
-- ament is the build system
-- colcon is the build tool that uses ament
+- Ament is the build system
+- Colcon is the build tool that uses ament
 - A package can have multiple nodes
 
 ## Create package

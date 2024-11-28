@@ -25,14 +25,13 @@ WORKDIR /workspace
 # This workspace is an overlay on top of the ROS2 workspace
 COPY ros2_ws/src /workspace/ros2_ws/src/
 
-# Build the ROS2 workspace
-# RUN . /opt/ros/humble/setup.sh && colcon build
-
 # Source the ROS2 setup script
 RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc && \
     echo "source /opt/ros/humble/local_setup.bash" >> ~/.bashrc && \
     echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc && \
     echo "source /workspace/ros2_ws/install/setup.bash" >> ~/.bashrc
+
+# RUN /bin/bash -c "source ~/.bashrc && cd ros2_ws && colcon build --symlink-install"
 
 # Set the entrypoint
 ENTRYPOINT ["/bin/bash", "-c", "sleep infinity"]
