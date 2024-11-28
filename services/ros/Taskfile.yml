@@ -9,6 +9,7 @@ tasks:
   run-test-node:
     desc: Run test node
     cmds:
+      # ros2 run package_name executable_name
       - ros2 run my_robot_controller test_node
 
   run-draw-circle:

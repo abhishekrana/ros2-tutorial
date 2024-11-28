@@ -6,6 +6,13 @@
 - colcon is the build tool that uses ament
 - A package can have multiple nodes
 
+## Create package
+
+```bash
+cd ros2_ws/src
+ros2 pkg create my_robot_controller --build-type ament_python --dependencies rclpy
+```
+
 ## Topics
 
 - Send data stream from one part to another without expecting an answer.

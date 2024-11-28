@@ -12,23 +12,27 @@ task install:pre-commit
 ## Build
 
 ```bash
-cd ros2_ws
-colcon build --symlink-install
+task docker:exec-ros
 source ~/.bashrc
+task build
 ```
 
 ## Run
 
+Run turtlesim
+
 ```bash
-# ros2 run package_name executable_name
-ros2 run my_robot_controller test_node
+task docker:exec-ros
+source ~/.bashrc
+ros2 run turtlesim turtlesim_node
 ```
 
-## Create package
+Run robot controller
 
 ```bash
-cd ros2_ws/src
-ros2 pkg create my_robot_controller --build-type ament_python --dependencies rclpy
+task docker:exec-ros
+source ~/.bashrc
+task run-turtle-controller
 ```
 
 ## Commands
@@ -54,4 +58,4 @@ Services
 
 # References
 
-- ROS2 Tutorials - ROS2 Humble For Beginners https://www.youtube.com/playlist?list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy
+- [ROS2 Tutorials - ROS2 Humble For Beginners](https://www.youtube.com/playlist?list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy)
