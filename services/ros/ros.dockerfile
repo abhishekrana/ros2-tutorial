@@ -35,4 +35,4 @@ RUN echo "source /opt/ros/humble/setup.sh" >> ~/.bashrc && \
     echo "source /workspace/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 # Set the entrypoint
-ENTRYPOINT ["/bin/bash", "-c", "python3 ros2_ws/src/main.py"]
+ENTRYPOINT ["/bin/bash", "-c", "sleep infinity"]
